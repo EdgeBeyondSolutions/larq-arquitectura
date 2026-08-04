@@ -1,0 +1,224 @@
+(function () {
+  "use strict";
+
+  const fineHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const $ = (sel, scope) => (scope || document).querySelector(sel);
+  const $$ = (sel, scope) => Array.from((scope || document).querySelectorAll(sel));
+
+  function safe(fn, name) {
+    try { fn(); } catch (e) { console.warn("[" + name + "]", e); }
+  }
+
+  /* ---------- Nav ---------- */
+  function initNav() {
+    const nav = $(".nav");
+    const burger = $(".nav-burger");
+    const mobileMenu = $(".mobile-menu");
+    if (!nav) return;
+
+    const onScroll = () => {
+      if (window.scrollY > 40) nav.classList.add("is-solid");
+      else nav.classList.remove("is-solid");
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    if (burger && mobileMenu) {
+      burger.addEventListener("click", () => {
+        const open = burger.classList.toggle("is-open");
+        mobileMenu.classList.toggle("is-open", open);
+        document.body.style.overflow = open ? "hidden" : "";
+        burger.setAttribute("aria-expanded", String(open));
+      });
+      $$("a", mobileMenu).forEach(a => a.addEventListener("click", () => {
+        burger.classList.remove("is-open");
+        mobileMenu.classList.remove("is-open");
+        document.body.style.overflow = "";
+      }));
+    }
+  }
+
+  /* ---------- Smooth in-page anchor scroll (FAQ links, footer, etc.) ---------- */
+  function initAnchorScroll() {
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const id = a.getAttribute("href");
+      if (!id || id === "#") return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      const top = el.getBoundingClientRect().top + window.scrollY - 76;
+      window.scrollTo({ top, behavior: "smooth" });
+    });
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  function initReveals() {
+    const els = $$(".reveal");
+    if (!els.length) return;
+
+    const safety = setTimeout(() => {
+      els.forEach(el => el.classList.add("is-visible"));
+    }, 6000);
+
+    if (!("IntersectionObserver" in window)) {
+      els.forEach(el => el.classList.add("is-visible"));
+      clearTimeout(safety);
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
+
+    els.forEach(el => io.observe(el));
+  }
+
+  /* ---------- Card cursor-follow halo ---------- */
+  function initCardHalo() {
+    if (!fineHover) return;
+    $$(".card").forEach(card => {
+      if (card.dataset.haloBound) return;
+      card.dataset.haloBound = "1";
+      card.addEventListener("mousemove", e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mx", (e.clientX - rect.left) + "px");
+        card.style.setProperty("--my", (e.clientY - rect.top) + "px");
+      });
+    });
+  }
+
+  /* ---------- FAQ accordion ---------- */
+  function initFaqAccordion() {
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".faq-q");
+      if (!btn) return;
+      const item = btn.closest(".faq-item");
+      const answer = item.querySelector(".faq-a");
+      const isOpen = item.classList.contains("is-open");
+
+      $$(".faq-item.is-open").forEach(openItem => {
+        if (openItem !== item) {
+          openItem.classList.remove("is-open");
+          openItem.querySelector(".faq-a").style.maxHeight = null;
+          openItem.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+        }
+      });
+
+      if (isOpen) {
+        item.classList.remove("is-open");
+        answer.style.maxHeight = null;
+        btn.setAttribute("aria-expanded", "false");
+      } else {
+        item.classList.add("is-open");
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+  }
+
+  /* ---------- Lightbox (reads directly from DOM, no data layer needed) ---------- */
+  function initLightbox() {
+    const lb = $(".lightbox");
+    if (!lb) return;
+    const imgEl = $(".lightbox img", lb);
+    const captionEl = $(".lightbox-caption", lb);
+    const items = $$("[data-lightbox-trigger] img");
+    if (!items.length) return;
+    let idx = 0;
+
+    function show(i) {
+      idx = (i + items.length) % items.length;
+      const item = items[idx];
+      imgEl.src = item.src;
+      imgEl.alt = item.alt;
+      captionEl.textContent = item.alt;
+    }
+    function open(i) {
+      show(i);
+      lb.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    }
+    function close() {
+      lb.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+    document.addEventListener("click", (e) => {
+      const trigger = e.target.closest("[data-lightbox-trigger]");
+      if (trigger) { open(parseInt(trigger.dataset.index, 10) || 0); return; }
+      if (e.target.closest(".lightbox-close") || e.target === lb) close();
+      if (e.target.closest(".lightbox-next")) show(idx + 1);
+      if (e.target.closest(".lightbox-prev")) show(idx - 1);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (!lb.classList.contains("is-open")) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") show(idx + 1);
+      if (e.key === "ArrowLeft") show(idx - 1);
+    });
+  }
+
+  /* ---------- Contact form (simulated submit — no backend wired yet) ---------- */
+  function initContactForm() {
+    const form = $("[data-contact-form]");
+    if (!form) return;
+    const status = $(".form-status", form);
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      if (status) status.textContent = "Enviando…";
+      setTimeout(() => {
+        if (status) status.textContent = "Gracias. Tu mensaje ha sido enviado, te contactaremos pronto.";
+        form.reset();
+      }, 700);
+    });
+  }
+
+  /* ---------- Splash safety net ---------- */
+  function initSplash() {
+    const splash = $(".splash");
+    if (!splash) return;
+    setTimeout(() => { splash.style.display = "none"; }, 2600);
+  }
+
+  /* ---------- Hero background carousel — crossfades every ~3.2s ---------- */
+  function initHeroCarousel() {
+    const wrap = $(".hero-bg");
+    if (!wrap) return;
+    const imgs = $$("img", wrap);
+    if (imgs.length < 2) return;
+    let i = 0;
+    imgs[0].classList.add("is-active");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setInterval(() => {
+      imgs[i].classList.remove("is-active");
+      i = (i + 1) % imgs.length;
+      imgs[i].classList.add("is-active");
+    }, 3200);
+  }
+
+  function boot() {
+    safe(initNav, "initNav");
+    safe(initAnchorScroll, "initAnchorScroll");
+    safe(initReveals, "initReveals");
+    safe(initCardHalo, "initCardHalo");
+    safe(initFaqAccordion, "initFaqAccordion");
+    safe(initLightbox, "initLightbox");
+    safe(initContactForm, "initContactForm");
+    safe(initSplash, "initSplash");
+    safe(initHeroCarousel, "initHeroCarousel");
+    document.documentElement.classList.add("is-ready");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
