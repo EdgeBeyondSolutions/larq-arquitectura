@@ -222,10 +222,9 @@
   /* ---------- Splash: static logo on interior pages + mobile/slow connections, one-time video reveal on desktop homepage ---------- */
   function shouldSkipVideoIntro() {
     try {
-      const isSmallScreen = matchMedia("(max-width: 760px)").matches;
       const conn = navigator.connection || navigator.webkitConnection || navigator.mozConnection;
       const isSlowOrSaveData = conn && (conn.saveData || /2g/.test(conn.effectiveType || ""));
-      return isSmallScreen || !!isSlowOrSaveData;
+      return !!isSlowOrSaveData; // only skip on save-data / very slow connections — otherwise show the video everywhere, including mobile
     } catch (e) {
       return false;
     }

@@ -593,7 +593,10 @@ ul, ol { list-style: none; padding: 0; }
 
 .splash.video-mode { animation: none; }
 .splash.video-mode.is-hiding { animation: splashOut .7s var(--ease-out) forwards; }
-.splash-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.splash-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--bg); }
+@media (max-width: 760px) {
+  .splash-video { object-fit: contain; } /* el video es horizontal; en pantallas angostas "cover" recortaba el logo — "contain" lo muestra completo */
+}
 .splash-skip {
   position: absolute; bottom: clamp(1.4rem, 4vw, 2.4rem); right: clamp(1.4rem, 4vw, 2.4rem); z-index: 2;
   font-family: var(--sans); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
