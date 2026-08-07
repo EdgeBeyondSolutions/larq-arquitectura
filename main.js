@@ -270,19 +270,16 @@
       if (e.key === "Escape") { finish(); document.removeEventListener("keydown", onEsc); }
     });
 
-    // Only now, on desktop/fast connections, do we inject the actual video sources and start loading bytes.
-    const webm = document.createElement("source");
-    webm.src = "assets/video/logo-reveal.webm";
-    webm.type = "video/webm";
-    const mp4 = document.createElement("source");
-    mp4.src = "assets/video/logo-reveal.mp4";
-    mp4.type = "video/mp4";
-    video.appendChild(webm);
-    video.appendChild(mp4);
-    video.load();
+    // Reasserting muted explicitly — some mobile browsers ignore the HTML attribute right after load.
+    video.muted = true;
+    video.defaultMuted = true;
 
     const playPromise = video.play();
-    if (playPromise && playPromise.catch) playPromise.catch(finish);
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(() => {
+        setTimeout(() => { video.play().catch(finish); }, 150); // one retry before giving up
+      });
+    }
   }
 
   /* ---------- Hero background carousel — crossfades every ~3.2s ---------- */

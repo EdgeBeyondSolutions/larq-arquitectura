@@ -68,7 +68,10 @@
 
   <div class="splash video-mode" aria-hidden="true">
     <img class="splash-fallback-logo" src="assets/img/logo-full-gold.webp" alt="">
-    <video class="splash-video" poster="assets/video/logo-reveal-poster.webp" muted playsinline preload="none"></video>
+    <video class="splash-video" poster="assets/video/logo-reveal-poster.webp" autoplay muted playsinline webkit-playsinline>
+      <source src="assets/video/logo-reveal.webm" type="video/webm">
+      <source src="assets/video/logo-reveal.mp4" type="video/mp4">
+    </video>
     <button class="splash-skip" type="button">Saltar ✕</button>
   </div>
 
