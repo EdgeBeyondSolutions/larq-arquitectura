@@ -16,21 +16,59 @@
   <meta property="og:description" content="LARQ Arquitectura y Diseño, liderada por la arquitecta Leslie Lara, crea proyectos residenciales y comerciales de alto nivel con excelencia, sofisticación y atención obsesiva al detalle.">
   <meta property="og:image" content="https://larqad.com/assets/img/gallery/pasillo-cocina-marmol-01.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="assets/img/logo.webp" type="image/webp">
+  <meta name="twitter:title" content="LARQ Arquitectura y Diseño | Arquitectura Residencial de Lujo en México">
+  <meta name="twitter:description" content="LARQ Arquitectura y Diseño, liderada por la arquitecta Leslie Lara, crea proyectos residenciales y comerciales de alto nivel con excelencia, sofisticación y atención obsesiva al detalle.">
+  <meta name="twitter:image" content="https://larqad.com/assets/img/gallery/pasillo-cocina-marmol-01.webp">
+  <link rel="icon" href="assets/img/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/img/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <!-- Verificación de Google Search Console: verifica el dominio por DNS (recomendado) en
+       search.google.com/search-console — no requiere tocar este archivo. Si prefieres el método
+       de meta tag en su lugar, Google te da una línea <meta name="google-site-verification" ...>
+       para pegar aquí. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=1">
+  <!-- Google Analytics 4: reemplaza G-XXXXXXXXXX por tu Measurement ID real de analytics.google.com -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-XXXXXXXXXX");
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Architect",
+    "name": "LARQ Arquitectura y Diseño",
+    "url": "https://larqad.com/",
+    "logo": "https://larqad.com/assets/img/logo-full.webp",
+    "image": "https://larqad.com/assets/img/gallery/pasillo-cocina-marmol-01.webp",
+    "description": "Firma de arquitectura especializada en arquitectura residencial y comercial de lujo, interiorismo, remodelaciones integrales, diseño de fachadas, construcción y desarrollo ejecutivo de proyectos.",
+    "telephone": "+525567066119",
+    "areaServed": { "@type": "City", "name": "Ciudad de México" },
+    "founder": {
+      "@type": "Person",
+      "name": "Leslie Lara",
+      "jobTitle": "Fundadora & Arquitecta Principal"
+    },
+    "sameAs": [
+      "https://instagram.com/larq_ad",
+      "https://www.facebook.com/larqad"
+    ]
+  }
+  </script>
 </head>
 <body>
 
   <a href="#main" class="skip-link">Saltar al contenido</a>
 
   <div class="splash video-mode" aria-hidden="true">
-    <video class="splash-video" poster="assets/video/logo-reveal-poster.webp" autoplay muted playsinline>
-      <source src="assets/video/logo-reveal.webm" type="video/webm">
-      <source src="assets/video/logo-reveal.mp4" type="video/mp4">
-    </video>
+    <img class="splash-fallback-logo" src="assets/img/logo-full-gold.webp" alt="">
+    <video class="splash-video" poster="assets/video/logo-reveal-poster.webp" muted playsinline preload="none"></video>
     <button class="splash-skip" type="button">Saltar ✕</button>
   </div>
 

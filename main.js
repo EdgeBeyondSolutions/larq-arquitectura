@@ -219,13 +219,27 @@
     });
   }
 
-  /* ---------- Splash: static logo on interior pages, one-time video reveal on the homepage ---------- */
+  /* ---------- Splash: static logo on interior pages + mobile/slow connections, one-time video reveal on desktop homepage ---------- */
+  function shouldSkipVideoIntro() {
+    try {
+      const isSmallScreen = matchMedia("(max-width: 760px)").matches;
+      const conn = navigator.connection || navigator.webkitConnection || navigator.mozConnection;
+      const isSlowOrSaveData = conn && (conn.saveData || /2g/.test(conn.effectiveType || ""));
+      return isSmallScreen || !!isSlowOrSaveData;
+    } catch (e) {
+      return false;
+    }
+  }
+
   function initSplash() {
     const splash = $(".splash");
     if (!splash) return;
 
     const video = $(".splash-video", splash);
-    if (!video) {
+    if (!video || shouldSkipVideoIntro()) {
+      if (video) video.remove();
+      const skipBtn = $(".splash-skip", splash);
+      if (skipBtn) skipBtn.remove(); // nothing to skip — the static logo is already quick
       setTimeout(() => { splash.style.display = "none"; }, 2600);
       return;
     }
@@ -256,6 +270,17 @@
     document.addEventListener("keydown", function onEsc(e) {
       if (e.key === "Escape") { finish(); document.removeEventListener("keydown", onEsc); }
     });
+
+    // Only now, on desktop/fast connections, do we inject the actual video sources and start loading bytes.
+    const webm = document.createElement("source");
+    webm.src = "assets/video/logo-reveal.webm";
+    webm.type = "video/webm";
+    const mp4 = document.createElement("source");
+    mp4.src = "assets/video/logo-reveal.mp4";
+    mp4.type = "video/mp4";
+    video.appendChild(webm);
+    video.appendChild(mp4);
+    video.load();
 
     const playPromise = video.play();
     if (playPromise && playPromise.catch) playPromise.catch(finish);
