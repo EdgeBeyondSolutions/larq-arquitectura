@@ -32,7 +32,6 @@
 
   <header class="nav">
     <div class="container nav-inner">
-      <a href="index.html" class="nav-logo"><img src="assets/img/logo-full.webp" alt="LARQ Arquitectura y Diseño"></a>
       <nav class="nav-links" aria-label="Navegación principal">
         <a href="index.html">Inicio</a>
         <a href="servicios.html">Servicios</a>
@@ -41,7 +40,6 @@
         <a href="faq.html">FAQ</a>
         <a href="contacto.html" class="active">Contacto</a>
       </nav>
-      <a href="contacto.html" class="btn btn-primary nav-cta">Agendar Consulta</a>
       <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -58,7 +56,7 @@
     <a href="contacto.html">Contacto</a>
     <a href="contacto.html" class="btn btn-primary" style="margin-top:.5rem;">Agendar Consulta</a>
     <div class="mobile-menu-foot">
-      <span>@larqad</span>
+      <span>@larq_ad</span>
       <span>+52 55 6706 6119</span>
     </div>
   </div>
@@ -76,31 +74,44 @@
               <a class="contact-info-item" href="https://wa.me/525567066119" target="_blank" rel="noopener">
                 <span class="ico">☎</span><span>+52 55 6706 6119 · WhatsApp</span>
               </a>
-              <a class="contact-info-item" href="https://instagram.com/larqad" target="_blank" rel="noopener">
-                <span class="ico">◇</span><span>@larqad · Instagram</span>
+              <a class="contact-info-item" href="https://instagram.com/larq_ad" target="_blank" rel="noopener">
+                <span class="ico">◇</span><span>@larq_ad · Instagram</span>
+              </a>
+              <a class="contact-info-item" href="https://www.facebook.com/larqad" target="_blank" rel="noopener">
+                <span class="ico">◇</span><span>LARQ Arquitectura y Diseño · Facebook</span>
               </a>
             </div>
           </div>
-          <form class="contact-form reveal" data-contact-form action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST">
-            <div class="field">
-              <label for="name">Nombre</label>
-              <input id="name" name="name" type="text" required autocomplete="name">
+          <div class="contact-form-wrap reveal">
+            <!-- Conectado al Formspree de EdgeBeyond (mismo endpoint que Emerald Spring Hill), enviando a admin@edgebeyond.solutions -->
+            <form class="contact-form" data-contact-form action="https://formspree.io/f/xjgndogp" method="POST">
+              <input type="hidden" name="_subject" value="Nuevo mensaje de contacto — Sitio LARQ">
+              <input type="hidden" name="_sitio" value="larqad.com">
+              <div class="field">
+                <label for="name">Nombre</label>
+                <input id="name" name="name" type="text" required autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="email">Correo Electrónico</label>
+                <input id="email" name="email" type="email" required autocomplete="email">
+              </div>
+              <div class="field">
+                <label for="phone">Teléfono</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel">
+              </div>
+              <div class="field">
+                <label for="message">Cuéntanos sobre tu proyecto</label>
+                <textarea id="message" name="message" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+              <p class="form-status" role="status" aria-live="polite"></p>
+            </form>
+            <div class="form-success" hidden>
+              <div class="form-success-icon">✓</div>
+              <h3>Mensaje enviado</h3>
+              <p>Gracias por escribirnos. Nos pondremos en contacto contigo muy pronto.</p>
             </div>
-            <div class="field">
-              <label for="email">Correo Electrónico</label>
-              <input id="email" name="email" type="email" required autocomplete="email">
-            </div>
-            <div class="field">
-              <label for="phone">Teléfono</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel">
-            </div>
-            <div class="field">
-              <label for="message">Cuéntanos sobre tu proyecto</label>
-              <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
-            <p class="form-status" role="status" aria-live="polite"></p>
-          </form>
+          </div>
         </div>
       </div>
     </section>
@@ -149,8 +160,15 @@
         <div class="footer-col">
           <h4>Contacto</h4>
           <a href="https://wa.me/525567066119" target="_blank" rel="noopener">+52 55 6706 6119</a>
-          <a href="https://instagram.com/larqad" target="_blank" rel="noopener">@larqad</a>
           <a href="contacto.html">Agendar Consulta</a>
+          <div class="footer-social">
+            <a href="https://instagram.com/larq_ad" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg>
+            </a>
+            <a href="https://www.facebook.com/larqad" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v3.5H8V21h3.5v-7.5h3l.5-3.5h-3.5V7.5c0-.8.7-1.5 1.5-1.5H15V3z"/></svg>
+            </a>
+          </div>
         </div>
         <div class="footer-col">
           <h4>Estudio</h4>

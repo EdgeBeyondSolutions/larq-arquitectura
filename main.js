@@ -164,27 +164,101 @@
     });
   }
 
-  /* ---------- Contact form (simulated submit — no backend wired yet) ---------- */
+  /* ---------- Contact form: real AJAX submit, success card, then form reappears empty ---------- */
   function initContactForm() {
     const form = $("[data-contact-form]");
     if (!form) return;
+    const wrap = form.closest(".contact-form-wrap");
+    const successEl = wrap ? $(".form-success", wrap) : null;
     const status = $(".form-status", form);
-    form.addEventListener("submit", (e) => {
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (!form.reportValidity()) return;
+
+      const action = form.getAttribute("action") || "";
+      if (!action || action.indexOf("REPLACE_WITH_YOUR_FORM_ID") !== -1) {
+        if (status) status.textContent = "El formulario todavía no está conectado. Contáctanos por WhatsApp mientras tanto.";
+        return;
+      }
+
       if (status) status.textContent = "Enviando…";
-      setTimeout(() => {
-        if (status) status.textContent = "Gracias. Tu mensaje ha sido enviado, te contactaremos pronto.";
-        form.reset();
-      }, 700);
+      if (submitBtn) submitBtn.disabled = true;
+
+      fetch(action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { "Accept": "application/json" }
+      }).then(function (res) {
+        if (res.ok) {
+          if (status) status.textContent = "";
+          form.reset();
+          if (successEl) {
+            form.style.display = "none";
+            successEl.hidden = false;
+            setTimeout(function () {
+              successEl.hidden = true;
+              form.style.display = "";
+            }, 4500);
+          } else if (status) {
+            status.textContent = "Gracias. Tu mensaje ha sido enviado, te contactaremos pronto.";
+          }
+        } else {
+          return res.json().catch(function () { return null; }).then(function (data) {
+            var msg = (data && data.errors) ? data.errors.map(function (x) { return x.message; }).join(", ")
+              : "Hubo un problema al enviar. Intenta de nuevo o escríbenos por WhatsApp.";
+            if (status) status.textContent = msg;
+          });
+        }
+      }).catch(function () {
+        if (status) status.textContent = "Hubo un problema de conexión. Intenta de nuevo o escríbenos por WhatsApp.";
+      }).finally(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      });
     });
   }
 
-  /* ---------- Splash safety net ---------- */
+  /* ---------- Splash: static logo on interior pages, one-time video reveal on the homepage ---------- */
   function initSplash() {
     const splash = $(".splash");
     if (!splash) return;
-    setTimeout(() => { splash.style.display = "none"; }, 2600);
+
+    const video = $(".splash-video", splash);
+    if (!video) {
+      setTimeout(() => { splash.style.display = "none"; }, 2600);
+      return;
+    }
+
+    let seen = false;
+    try { seen = sessionStorage.getItem("larq_intro_seen") === "1"; } catch (e) { /* storage unavailable, treat as unseen */ }
+
+    if (seen) {
+      splash.style.display = "none";
+      return;
+    }
+    try { sessionStorage.setItem("larq_intro_seen", "1"); } catch (e) { /* ignore */ }
+
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      splash.classList.add("is-hiding");
+      setTimeout(() => { splash.style.display = "none"; }, 750);
+    };
+
+    video.addEventListener("ended", finish);
+    video.addEventListener("error", finish);
+    setTimeout(finish, 9000); // safety net if video can't play for any reason
+
+    const skipBtn = $(".splash-skip", splash);
+    if (skipBtn) skipBtn.addEventListener("click", finish);
+    document.addEventListener("keydown", function onEsc(e) {
+      if (e.key === "Escape") { finish(); document.removeEventListener("keydown", onEsc); }
+    });
+
+    const playPromise = video.play();
+    if (playPromise && playPromise.catch) playPromise.catch(finish);
   }
 
   /* ---------- Hero background carousel — crossfades every ~3.2s ---------- */

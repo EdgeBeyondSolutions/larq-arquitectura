@@ -26,13 +26,16 @@
 
   <a href="#main" class="skip-link">Saltar al contenido</a>
 
-  <div class="splash" aria-hidden="true">
-    <img src="assets/img/logo-full.webp" alt="">
+  <div class="splash video-mode" aria-hidden="true">
+    <video class="splash-video" poster="assets/video/logo-reveal-poster.webp" autoplay muted playsinline>
+      <source src="assets/video/logo-reveal.webm" type="video/webm">
+      <source src="assets/video/logo-reveal.mp4" type="video/mp4">
+    </video>
+    <button class="splash-skip" type="button">Saltar ✕</button>
   </div>
 
   <header class="nav">
     <div class="container nav-inner">
-      <a href="index.html" class="nav-logo"><img src="assets/img/logo-full.webp" alt="LARQ Arquitectura y Diseño"></a>
       <nav class="nav-links" aria-label="Navegación principal">
         <a href="index.html" class="active">Inicio</a>
         <a href="servicios.html">Servicios</a>
@@ -41,7 +44,6 @@
         <a href="faq.html">FAQ</a>
         <a href="contacto.html">Contacto</a>
       </nav>
-      <a href="contacto.html" class="btn btn-primary nav-cta">Agendar Consulta</a>
       <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -58,7 +60,7 @@
     <a href="contacto.html">Contacto</a>
     <a href="contacto.html" class="btn btn-primary" style="margin-top:.5rem;">Agendar Consulta</a>
     <div class="mobile-menu-foot">
-      <span>@larqad</span>
+      <span>@larq_ad</span>
       <span>+52 55 6706 6119</span>
     </div>
   </div>
@@ -75,12 +77,19 @@
       <div class="hero-tint"></div>
       <div class="hero-grain" aria-hidden="true"></div>
       <div class="hero-inner">
-        <p class="kicker">LARQ Arquitectura &amp; Diseño</p>
-        <h1 class="hero-title">Arquitectura que <em>trasciende</em> el tiempo.</h1>
-        <p class="hero-sub">Diseñamos espacios excepcionales donde la estética, la funcionalidad y la experiencia se convierten en una sola visión.</p>
+        <div class="hero-top">
+          <div class="hero-copy">
+            <p class="kicker">LARQ Arquitectura &amp; Diseño</p>
+            <h1 class="hero-title">Arquitectura que <em>trasciende</em> el tiempo.</h1>
+            <p class="hero-sub">Diseñamos espacios excepcionales donde la estética, la funcionalidad y la experiencia se convierten en una sola visión.</p>
+          </div>
+          <div class="hero-logo-wrap">
+            <img class="hero-logo-gold" src="assets/img/logo-full.webp" alt="LARQ Arquitectura y Diseño">
+          </div>
+        </div>
         <div class="hero-actions">
-          <a href="galeria.html" class="btn btn-primary">Explorar Galería</a>
-          <a href="contacto.html" class="btn btn-ghost">Agendar Consulta</a>
+          <a href="galeria.html" class="btn btn-primary btn-sm">Explorar Galería</a>
+          <a href="contacto.html" class="btn btn-ghost btn-sm">Agendar Consulta</a>
         </div>
       </div>
       <div class="hero-scroll" aria-hidden="true"><span>Scroll</span><span class="hero-scroll-line"></span></div>
@@ -225,15 +234,25 @@
           <p class="kicker">Experiencia &amp; Diferenciales</p>
           <h2>¿Por qué elegir LARQ?</h2>
         </div>
-        <div class="why-grid reveal">
-          <div class="why-item"><span class="gold-dot"></span><span>Atención personalizada</span></div>
-          <div class="why-item"><span class="gold-dot"></span><span>Diseño a medida</span></div>
-          <div class="why-item"><span class="gold-dot"></span><span>Experiencia profesional</span></div>
-          <div class="why-item"><span class="gold-dot"></span><span>Soluciones integrales</span></div>
-          <div class="why-item"><span class="gold-dot"></span><span>Supervisión detallada</span></div>
-          <div class="why-item"><span class="gold-dot"></span><span>Comunicación constante</span></div>
-          <div class="why-item"><span class="gold-dot"></span><span>Calidad constructiva</span></div>
-          <div class="why-item"><span class="gold-dot"></span><span>Ejecución impecable</span></div>
+        <div class="diff-ribbon reveal">
+          <div class="diff-track">
+            <span class="diff-word"><span class="gold-dot"></span>Atención personalizada</span>
+            <span class="diff-word"><span class="gold-dot"></span>Diseño a medida</span>
+            <span class="diff-word"><span class="gold-dot"></span>Experiencia profesional</span>
+            <span class="diff-word"><span class="gold-dot"></span>Soluciones integrales</span>
+            <span class="diff-word"><span class="gold-dot"></span>Supervisión detallada</span>
+            <span class="diff-word"><span class="gold-dot"></span>Comunicación constante</span>
+            <span class="diff-word"><span class="gold-dot"></span>Calidad constructiva</span>
+            <span class="diff-word"><span class="gold-dot"></span>Ejecución impecable</span>
+            <span class="diff-word"><span class="gold-dot"></span>Atención personalizada</span>
+            <span class="diff-word"><span class="gold-dot"></span>Diseño a medida</span>
+            <span class="diff-word"><span class="gold-dot"></span>Experiencia profesional</span>
+            <span class="diff-word"><span class="gold-dot"></span>Soluciones integrales</span>
+            <span class="diff-word"><span class="gold-dot"></span>Supervisión detallada</span>
+            <span class="diff-word"><span class="gold-dot"></span>Comunicación constante</span>
+            <span class="diff-word"><span class="gold-dot"></span>Calidad constructiva</span>
+            <span class="diff-word"><span class="gold-dot"></span>Ejecución impecable</span>
+          </div>
         </div>
       </div>
     </section>
@@ -270,8 +289,15 @@
         <div class="footer-col">
           <h4>Contacto</h4>
           <a href="https://wa.me/525567066119" target="_blank" rel="noopener">+52 55 6706 6119</a>
-          <a href="https://instagram.com/larqad" target="_blank" rel="noopener">@larqad</a>
           <a href="contacto.html">Agendar Consulta</a>
+          <div class="footer-social">
+            <a href="https://instagram.com/larq_ad" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg>
+            </a>
+            <a href="https://www.facebook.com/larqad" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v3.5H8V21h3.5v-7.5h3l.5-3.5h-3.5V7.5c0-.8.7-1.5 1.5-1.5H15V3z"/></svg>
+            </a>
+          </div>
         </div>
         <div class="footer-col">
           <h4>Estudio</h4>
