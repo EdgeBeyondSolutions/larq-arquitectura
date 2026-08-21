@@ -515,7 +515,7 @@ ul, ol { list-style: none; padding: 0; }
   transition: border-color .3s, transform .3s;
 }
 .contact-info-item:hover { border-color: var(--gold-dim); transform: translateX(4px); }
-.contact-info-item .ico { color: var(--gold); font-size: 1.2rem; }
+.contact-info-item .ico { color: var(--gold); font-size: 1.2rem; display: flex; align-items: center; }
 .contact-form { display: grid; gap: 1.1rem; }
 .contact-form-wrap { position: relative; }
 .form-success { text-align: center; padding: clamp(3.2rem, 9vw, 5.5rem) 1rem; border: 1px solid var(--line); background: var(--bg-3); }
@@ -572,14 +572,14 @@ ul, ol { list-style: none; padding: 0; }
 /* Sticky WhatsApp button */
 .whatsapp-float {
   position: fixed; bottom: 1.6rem; right: 1.6rem; z-index: 300;
-  width: 58px; height: 58px; border-radius: 50%;
-  background: var(--gold); color: #171310;
+  width: 46px; height: 46px;
+  color: #25D366;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 8px 24px rgba(0,0,0,.4);
-  transition: transform .35s var(--ease-out), box-shadow .35s var(--ease-out);
-  font-size: 1.5rem;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.5));
+  transition: transform .35s var(--ease-out), filter .35s var(--ease-out);
 }
-.whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 12px 32px rgba(201,161,90,.4); }
+.whatsapp-float svg { width: 100%; height: 100%; }
+.whatsapp-float:hover { transform: scale(1.08); filter: drop-shadow(0 8px 18px rgba(37,211,102,.45)); }
 
 /* Splash */
 .splash {
@@ -594,8 +594,8 @@ ul, ol { list-style: none; padding: 0; }
 .splash.video-mode { animation: none; }
 .splash.video-mode.is-hiding { animation: splashOut .7s var(--ease-out) forwards; }
 .splash-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--bg); }
-@media (max-width: 760px) {
-  .splash-video { object-fit: contain; } /* el video es horizontal; en pantallas angostas "cover" recortaba el logo — "contain" lo muestra completo */
+@media (max-width: 1024px) {
+  .splash-video { object-fit: contain; } /* el video es horizontal; en celulares y tablets (retrato o paisaje) "cover" recortaba el logo — "contain" lo muestra completo */
 }
 .splash-skip {
   position: absolute; bottom: clamp(1.4rem, 4vw, 2.4rem); right: clamp(1.4rem, 4vw, 2.4rem); z-index: 2;
