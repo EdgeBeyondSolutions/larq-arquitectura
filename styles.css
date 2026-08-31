@@ -583,13 +583,13 @@ ul, ol { list-style: none; padding: 0; }
 .whatsapp-float {
   position: fixed; bottom: 1.6rem; right: 1.6rem; z-index: 300;
   width: 46px; height: 46px;
-  color: #25D366;
+  color: var(--gold);
   display: flex; align-items: center; justify-content: center;
   filter: drop-shadow(0 6px 14px rgba(0,0,0,.5));
   transition: transform .35s var(--ease-out), filter .35s var(--ease-out);
 }
 .whatsapp-float svg { width: 100%; height: 100%; }
-.whatsapp-float:hover { transform: scale(1.08); filter: drop-shadow(0 8px 18px rgba(37,211,102,.45)); }
+.whatsapp-float:hover { transform: scale(1.08); filter: drop-shadow(0 8px 18px rgba(201,161,90,.45)); }
 
 /* Splash */
 .splash {
