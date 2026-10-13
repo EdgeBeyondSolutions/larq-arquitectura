@@ -9,6 +9,19 @@
     try { fn(); } catch (e) { console.warn("[" + name + "]", e); }
   }
 
+  function trackLead(method) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "generate_lead", lead_method: method });
+  }
+
+  /* ---------- Lead tracking: WhatsApp clicks (form submit tracked in initContactForm) ---------- */
+  function initLeadTracking() {
+    document.addEventListener("click", function (e) {
+      const link = e.target.closest('a[href^="https://wa.me/"]');
+      if (link) trackLead("whatsapp");
+    });
+  }
+
   /* ---------- Nav ---------- */
   function initNav() {
     const nav = $(".nav");
@@ -192,6 +205,7 @@
         headers: { "Accept": "application/json" }
       }).then(function (res) {
         if (res.ok) {
+          trackLead("form");
           if (status) status.textContent = "";
           form.reset();
           if (successEl) {
@@ -306,6 +320,7 @@
     safe(initFaqAccordion, "initFaqAccordion");
     safe(initLightbox, "initLightbox");
     safe(initContactForm, "initContactForm");
+    safe(initLeadTracking, "initLeadTracking");
     safe(initSplash, "initSplash");
     safe(initHeroCarousel, "initHeroCarousel");
     document.documentElement.classList.add("is-ready");
