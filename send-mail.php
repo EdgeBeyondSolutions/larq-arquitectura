@@ -1,10 +1,9 @@
 <?php
 /**
  * Manejador del formulario de contacto — envía el mensaje por correo.
- * Requiere PHP con mail() habilitado (disponible por default en Hostinger).
+ * Requiere PHP con mail() habilitado (disponible por default en hosting compartido con cPanel, como Spaceship).
  *
- * Destino de pruebas mientras se confirma el correo real del cliente:
- * contact@edgebeyond.solutions
+ * Destino: leslielara@larqad.com
  */
 
 header('Content-Type: application/json; charset=utf-8');
@@ -47,8 +46,7 @@ if (!empty($errors)) {
     exit;
 }
 
-// Correo de prueba mientras se confirma el destino real del cliente.
-$to = 'contact@edgebeyond.solutions';
+$to = 'leslielara@larqad.com';
 
 $body = "Nuevo mensaje desde el formulario de contacto de {$sitio}\n\n"
       . "Nombre: {$name}\n"
