@@ -106,10 +106,11 @@
             </div>
           </div>
           <div class="contact-form-wrap reveal">
-            <!-- Conectado al Formspree de EdgeBeyond (mismo endpoint que Emerald Spring Hill), enviando a admin@edgebeyond.solutions -->
-            <form class="contact-form" data-contact-form action="https://formspree.io/f/xjgndogp" method="POST">
+            <!-- Envía por send-mail.php (requiere PHP, Hostinger). Destino de pruebas: contact@edgebeyond.solutions — cambiar a send-mail.php cuando se confirme el correo real del cliente. -->
+            <form class="contact-form" data-contact-form action="send-mail.php" method="POST">
               <input type="hidden" name="_subject" value="Nuevo mensaje de contacto — Sitio LARQ">
               <input type="hidden" name="_sitio" value="larqad.com">
+              <input type="text" name="_gotcha" style="position:absolute; left:-9999px;" tabindex="-1" autocomplete="off" aria-hidden="true">
               <div class="field">
                 <label for="name">Nombre</label>
                 <input id="name" name="name" type="text" required autocomplete="name">
