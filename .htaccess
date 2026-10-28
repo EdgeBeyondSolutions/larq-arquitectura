@@ -9,6 +9,10 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 RewriteCond %{HTTP_HOST} ^www\.larqad\.com$ [NC]
 RewriteRule ^(.*)$ https://larqad.com/$1 [L,R=301]
 
+# ===== /index.html -> / (evita contenido duplicado, Google prefiere la URL raíz) =====
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?] [NC]
+RewriteRule ^index\.html$ / [L,R=301]
+
 # ===== Compresión (reduce el peso transferido) =====
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
